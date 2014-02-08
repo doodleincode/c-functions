@@ -23,14 +23,6 @@ char *io_fgets(Status *status, char *str, int max_len, FILE *stream)
     
     int c, i = 0;
     
-    // Make sure the char pointer given is actually of sufficient size for given
-    // max_len. We check this to prevent out-of-bounds issues
-    // We check against max_len - 2 to account for newline and null terminator
-    if ((sizeof(str) / sizeof(str[0])) < (max_len - 2)) {
-        status_set(status, STATUS_OUT_OF_BOUNDS, "Array out-of-bounds exception.");
-        return NULL;
-    }
-    
     // Read one character at a time from the stream. The loop will exit on any one 
     // of the following conditions:
     // 1) (max_len - 1) characters reached
