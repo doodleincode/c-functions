@@ -36,7 +36,7 @@ typedef struct {
 
 void status_set(Status *, int, const char *);
 
-void status_format_msg(Status *, const char *, ...);
+void status_format_msg(Status *, int, const char *, ...);
 
 #endif /* _DH_STATUS_LIB_H_ */
 

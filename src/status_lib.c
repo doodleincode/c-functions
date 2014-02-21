@@ -22,7 +22,7 @@ void status_set(Status *status, int code, const char *msg)
     }
 }
 
-void status_format_msg(Status *status, const char *format, ...)
+void status_format_msg(Status *status, int code, const char *format, ...)
 {
     // Make sure the status pointer is not null
     if (status) {
@@ -33,6 +33,8 @@ void status_format_msg(Status *status, const char *format, ...)
         va_start(args, format);
         chars_written = vsnprintf(buffer, sizeof(buffer), format, args);
         va_end(args);
+        
+        status->code = code;
         
         // Success!
         if (chars_written > 0 && chars_written < sizeof(buffer)) {
