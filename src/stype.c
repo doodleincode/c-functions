@@ -19,15 +19,15 @@ int is_number(const char *str)
         return 0;
     }
     
-    // If first char is zero
-    if ((int)str[0] == 48) {
-        first_char_is_zero = 1;
-    }
-    
     // If first char is a dash (negative number), we'll advance the index
     // to skip it in our loop below
     if (str[0] == '-') {
         i++;
+    }
+    
+    // If first char (or second if first is a dash) is zero
+    if ((int)str[i] == 48) {
+        first_char_is_zero = i + 1; // Mark the placement of where the dot should be
     }
     
     for (; str[i]; i++) {
@@ -38,6 +38,7 @@ int is_number(const char *str)
         
         // If char is not 0-9 or a decimal point, we can return false immediately
         // since numbers shouldn't contain anything but 0-9 and optional decimal point
+        // NOTE: We are considering commas in numbers as invalid
         if (((int)str[i] < 48 || (int)str[i] > 57) && (int)str[i] != 46) {
             return 0;
         }
@@ -60,9 +61,9 @@ int is_number(const char *str)
         return 0;
     }
     
-    // If the first char was a zero, than the char immediately following needs to be decimal
-    // point, if not it wasn't a valid number!
-    if (first_char_is_zero == 1 && dot_placement != 1) {
+    // If the first char was a zero, then the char immediately following needs to be
+    // a decimal point, if not it wasn't a valid number!
+    if (first_char_is_zero && dot_placement != first_char_is_zero) {
         return 0;
     }
     
