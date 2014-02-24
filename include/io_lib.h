@@ -13,9 +13,9 @@
 #include "status_lib.h"
  
 /**
- * A safe and better version of fgets().
- * Addresses the issue of potentially large buffer that may still reside in 
- * the stream buffer.
+ * Works like fgets() but also flushes the stdin buffer if it was larger
+ * than the supplied buffer. If you need to keep the overflown stdin buffer,
+ * then use fgets() instead.
  *
  * Reads characters from stream and stores them as a C string into str until 
  * (max_len-1) characters have been read or either a newline or EOF is reached, 
